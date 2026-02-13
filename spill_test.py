@@ -264,9 +264,9 @@ def main():
         "left": pygame.K_a,
         "right": pygame.K_d,
         "jump": pygame.K_w,
-        "melee": pygame.K_f,
+        "melee": pygame.K_e,
         "shoot": pygame.K_g,
-        "ultimate": pygame.K_h,
+        "ultimate": pygame.K_f,
     }, GREEN)
  
     player2 = Player(WIDTH - 180, HEIGHT - 200, {
