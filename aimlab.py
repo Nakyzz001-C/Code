@@ -39,7 +39,7 @@ session_time = 30  # seconds
 session_start_time = None
 flash_color = None
 flash_start_time = 0
-flash_duration = 0.1  # seconds
+flash_duration = 0.  # seconds
 
 # Target class
 class Target:
