@@ -20,7 +20,7 @@ FLASH_HIT_COLOR = (255, 255, 255, 150)  # semi-transparent white
 FLASH_MISS_COLOR = (255, 0, 0, 150)     # semi-transparent red
 
 # Target properties
-TARGET_RADIUS = 38
+TARGET_RADIUS = 40
 
 # Font for text
 font = pygame.font.SysFont(None, 36)
@@ -35,11 +35,11 @@ shots_fired = 0
 hits = 0
 target_lifetime = 2  # seconds
 mode = None  # None means menu is active
-session_time = 45  # seconds
+session_time = 30  # seconds
 session_start_time = None
 flash_color = None
 flash_start_time = 0
-flash_duration = 0.2  # seconds
+flash_duration = 0.1  # seconds
 
 # Target class
 class Target:
@@ -84,7 +84,7 @@ def spawn_target():
 # Draw crosshair at mouse position
 def draw_crosshair(surface, pos):
     pygame.draw.line(surface, WHITE, (pos[0] - 10, pos[1]), (pos[0] + 10, pos[1]), 2)
-    pygame.draw.line(surface, WHITE, (pos[0], pos[1] - 10), (pos[0], pos[1] + 10), 2)
+    pygame.draw.line(surface, WHITE, (pos[0], pos[1] - 10), (pos[0], pos[1] + 10), 2)                                                      
 
 # Display score, accuracy, and timer
 def draw_stats(surface, score, hits, shots, time_left):
