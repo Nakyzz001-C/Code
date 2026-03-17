@@ -21,8 +21,8 @@ player_radius = 20
 
 # Bullets list
 bullets = []
-bullet_speed = 100
-bullet_radius = 5
+bullet_speed = 10
+bullet_radius = 10
 
 # Game loop
 while True:
