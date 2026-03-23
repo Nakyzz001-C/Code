@@ -3,23 +3,32 @@ import sys
 
 pygame.init()
 
-
+WIDTH, HEIGHT = 1800, 1200
 screen_width = 1800
 screen_height = 1200
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("1st EXP")
+clock = pygame.time.Clock()
 
-#Firkant settings
-height = 100
-width = 100
-x = screen_width //2
-y = screen_height //2
+# Colors
+WHITE = (240, 240, 240)
+BLUE = (0, 150, 255)
+DARK = (30, 30, 30)
+
+# Square (player)
+size = 100
+x = WIDTH // 2 - size // 2
+y = HEIGHT - size - 50
 
 y_velocity = 0
 gravity = 0.6
 jump_strength = -12
 on_ground = False
 
+# Ground
+ground_y = HEIGHT - 90
+
+# Game loop
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -32,17 +41,24 @@ while True:
                 y_velocity = jump_strength
                 on_ground = False
 
-# Apply gravity
+    # Apply gravity
     y_velocity += gravity
     y += y_velocity
 
     # Collision with ground
-    if y + x >= ground_y:
+    if y + size >= ground_y:
         y = ground_y - size
         y_velocity = 0
         on_ground = True
 
-    screen.fill((255, 255, 255))
-    pygame.draw.rect(screen, (0,0,0), [x,y,width,height])
-    pygame.display.flip()
+    # Draw
+    screen.fill(DARK)
 
+    # Ground
+    pygame.draw.rect(screen, WHITE, (0, ground_y, WIDTH, HEIGHT - ground_y))
+
+    # Square
+    pygame.draw.rect(screen, BLUE, (x, y, size, size))
+
+    pygame.display.flip()
+    clock.tick(60)
