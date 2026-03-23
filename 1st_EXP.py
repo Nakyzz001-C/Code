@@ -19,12 +19,15 @@ DARK = (30, 30, 30)
 size = 100
 x = WIDTH // 2 - size // 2
 y = HEIGHT - size - 50
-
 y_velocity = 0
 gravity = 0.6
-jump_strength = -12
+jump_strength = -12 
 on_ground = False
+player_pos = [WIDTH // 2, HEIGHT // 2]
 
+# --- Shop ---
+shop_open = False
+font = pygame.font.SysFont(None, 30)
 # Ground
 ground_y = HEIGHT - 90
 
@@ -34,9 +37,10 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
         # Jump
         if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w and on_ground:
+                y_velocity = 
             if event.key == pygame.K_SPACE and on_ground:
                 y_velocity = jump_strength
                 on_ground = False
@@ -50,6 +54,9 @@ while True:
         y = ground_y - size
         y_velocity = 0
         on_ground = True
+
+
+
 
     # Draw
     screen.fill(DARK)
