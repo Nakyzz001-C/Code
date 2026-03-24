@@ -31,6 +31,7 @@ on_ground = False
 
 # Target square
 box = pygame.Rect(200, 100, 40, 40)
+box_y = HEIGHT + 50
 
 # Ground
 ground_y = HEIGHT - 50
@@ -70,6 +71,10 @@ while True:
 
     # Collision check
     colliding = square.colliderect(box)
+    if square_y + square_size >= box_y:
+        square_y = box_y - square_size
+        y_velocity = 0
+        on_ground = True
 
     # Keep square on screen
     square_x = max(0, min(WIDTH - square_size, square_x))
