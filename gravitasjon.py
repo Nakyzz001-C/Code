@@ -18,7 +18,6 @@ DARK = (30, 30, 30)
 size = 40
 x = WIDTH // 2 - size // 2
 y = HEIGHT - size - 50
-
 y_velocity = 0
 gravity = 0.6
 jump_strength = -12
