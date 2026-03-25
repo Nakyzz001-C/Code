@@ -15,25 +15,19 @@ BOX_COLOR = (255, 80, 80)
 RED = (255, 0, 0)
 WHITE = (240, 240, 240)
 
-
-# Clock
-clock = pygame.time.Clock()
-
-# Square settings
-player = pygame.Rect(50, 125, 40, 40)
+# Square (player) settings
 square_size = 50
-square_x = WIDTH // 2
-square_y = HEIGHT // 2
+square_x = 50
+square_y = 125
+run_speed = 10
 speed = 5
 y_velocity = 0
 gravity = 0.6
 jump_strength = -20
 on_ground = False
-run_speed = 10
 
-# Target square
-box = pygame.Rect(200, 100, 40, 40)
-box_y = HEIGHT + 50
+# Target box (platform)
+box = pygame.Rect(200, 300, 120, 30)
 
 # Ground
 ground_y = HEIGHT - 50
@@ -44,6 +38,7 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
         # Jump
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and on_ground:
@@ -54,50 +49,47 @@ while True:
     y_velocity += gravity
     square_y += y_velocity
 
-    # Collision with ground
-    if square_y + square_size >= ground_y:
+    # Create player rect (IMPORTANT: synced with position)
+    player = pygame.Rect(square_x, square_y, square_size, square_size)
+
+    # --- Collision with ground ---
+    if player.bottom >= ground_y:
         square_y = ground_y - square_size
         y_velocity = 0
         on_ground = True
 
-    # Key presses
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_a]:
-        square_x -= run_speed
-    if keys[pygame.K_d]:
-        square_x += run_speed
-    if keys[pygame.K_w]:
-        square_y -= speed
-    if keys[pygame.K_s]:
-        square_y += speed
+    # --- Collision with box (platform) ---
+    if player.colliderect(box):
+        # Landing on top of box
+        if y_velocity > 0 and player.bottom <= box.top + 10:
+            square_y = box.top - square_size
+            y_velocity = 0
+            on_ground = True
 
-    # Collision check
-    colliding = player.colliderect(box)
+    # Movement (left/right only for platformer feel)
+    keys = pygame.key.get_pressed() 
+    if keys[pygame.K_a]: square_x -= run_speed 
+    if keys[pygame.K_d]: square_x += run_speed 
+    if keys[pygame.K_w]: square_y -= speed 
+    if keys[pygame.K_s]: square_y += speed
 
-    # Keep square on screen
+    # Keep player on screen
     square_x = max(0, min(WIDTH - square_size, square_x))
-    square_y = max(0, min(HEIGHT - square_size, square_y))
+    square_y = min(square_y, HEIGHT - square_size)
+
+    # Update player rect again after movement
+    player = pygame.Rect(square_x, square_y, square_size, square_size)
 
     # Drawing
-    screen.fill((30, 30, 30))  
-    
-    # background
-    pygame.draw.rect(
-        screen,
-        (0, 200, 255),
-        (square_x, square_y, square_size, square_size)
-    )
+    screen.fill(BG)
 
-    pygame.draw.rect(
-        screen,
-        RED if colliding else PLAYER_COLOR,
-        player
-    )
+    # Player
+    pygame.draw.rect(screen, PLAYER_COLOR, player)
 
-    pygame.draw.rect(screen, RED, box)
+    # Box (platform)
+    pygame.draw.rect(screen, BOX_COLOR, box)
 
-
-     # Ground
+    # Ground
     pygame.draw.rect(screen, WHITE, (0, ground_y, WIDTH, HEIGHT - ground_y))
 
     pygame.display.flip()
