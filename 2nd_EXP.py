@@ -35,9 +35,6 @@ run_speed = 10
 box = pygame.Rect(200, 100, 40, 40)
 box_y = HEIGHT + 50
 
-# Font
-font = pygame.font.SysFont(None, 32)
-
 # Ground
 ground_y = HEIGHT - 50
 
@@ -99,13 +96,6 @@ while True:
 
     pygame.draw.rect(screen, RED, box)
 
-        # Text
-    text = font.render(
-        "Collision!" if colliding else "No Collision",
-        True,
-        (255, 255, 255)
-    )
-    screen.blit(text, (20, 20))
 
      # Ground
     pygame.draw.rect(screen, WHITE, (0, ground_y, WIDTH, HEIGHT - ground_y))
