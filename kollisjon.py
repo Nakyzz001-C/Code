@@ -67,3 +67,10 @@ while True:
 
     pygame.display.flip()
     clock.tick(60)
+
+#     # Movement (left/right only for platformer feel)
+    # keys = pygame.key.get_pressed() 
+    # if keys[pygame.K_a]: square_x -= run_speed 
+    # if keys[pygame.K_d]: square_x += run_speed 
+    # if keys[pygame.K_w]: square_y -= speed 
+    # if keys[pygame.K_s]: square_y += speed
