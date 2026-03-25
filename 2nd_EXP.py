@@ -6,6 +6,7 @@ pygame.init()
 WIDTH, HEIGHT = 1000, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("2nd_test")
+clock = pygame.time.Clock()
 
 # Colors
 BG = (30, 30, 30)
@@ -19,7 +20,7 @@ WHITE = (240, 240, 240)
 clock = pygame.time.Clock()
 
 # Square settings
-square = pygame.Rect(0, 0, 0 , 0)
+player = pygame.Rect(50, 125, 40, 40)
 square_size = 50
 square_x = WIDTH // 2
 square_y = HEIGHT // 2
@@ -28,10 +29,14 @@ y_velocity = 0
 gravity = 0.6
 jump_strength = -20
 on_ground = False
+run_speed = 10
 
 # Target square
 box = pygame.Rect(200, 100, 40, 40)
 box_y = HEIGHT + 50
+
+# Font
+font = pygame.font.SysFont(None, 32)
 
 # Ground
 ground_y = HEIGHT - 50
@@ -61,20 +66,16 @@ while True:
     # Key presses
     keys = pygame.key.get_pressed()
     if keys[pygame.K_a]:
-        square_x -= speed
+        square_x -= run_speed
     if keys[pygame.K_d]:
-        square_x += speed
+        square_x += run_speed
     if keys[pygame.K_w]:
         square_y -= speed
     if keys[pygame.K_s]:
         square_y += speed
 
     # Collision check
-    colliding = square.colliderect(box)
-    if square_y + square_size >= box_y:
-        square_y = box_y - square_size
-        y_velocity = 0
-        on_ground = True
+    colliding = player.colliderect(box)
 
     # Keep square on screen
     square_x = max(0, min(WIDTH - square_size, square_x))
@@ -93,10 +94,18 @@ while True:
     pygame.draw.rect(
         screen,
         RED if colliding else PLAYER_COLOR,
-        square
+        player
     )
 
     pygame.draw.rect(screen, RED, box)
+
+        # Text
+    text = font.render(
+        "Collision!" if colliding else "No Collision",
+        True,
+        (255, 255, 255)
+    )
+    screen.blit(text, (20, 20))
 
      # Ground
     pygame.draw.rect(screen, WHITE, (0, ground_y, WIDTH, HEIGHT - ground_y))
