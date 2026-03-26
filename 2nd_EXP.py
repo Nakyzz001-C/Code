@@ -46,7 +46,6 @@ platforms = [
     pygame.Rect(400, random.randint(100, 200), 150, 20),
     pygame.Rect(random.randint(200, 700), random.randint(220, 500), 150, 20),
     pygame.Rect(random.randint(100, 500), random.randint(120, 500), random.randint(100, 200), 20),
-    pygame.Rect(650, 200, 150, 20)
 ]
 
 coins = []
