@@ -18,7 +18,7 @@ GREEN = (0, 255, 0)
 BLACK = (0, 0, 0)
 FLASH_HIT_COLOR = (255, 255, 255, 150)  # semi-transparent white
 FLASH_MISS_COLOR = (255, 0, 0, 150)     # semi-transparent red
-
+# TEST
 # Target properties
 TARGET_RADIUS = 40
 
